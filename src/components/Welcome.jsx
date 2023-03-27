@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom'
 import Typewriter from 'typewriter-effect'
+import { ProcurementContext } from '../context/ProcurementContext'
 
 const Welcome = () => {
+
+  const {connectWallet, currentAccount} = useContext(ProcurementContext);
+
   return (
     <div>
       <div className='space-y-4'>
@@ -24,11 +28,18 @@ const Welcome = () => {
         <p className='text-gray-500'>
             However only the Manager/Creator can accept, reject, shortlist and update the Procurement Tender and Auction application Status.
         </p>
-        <Link to='procurement' className='block'>
-            <button className='bg-[#5D3FD3] hover:opacity-80 text-white px-8 py-3'>
-            Get Started
+         {currentAccount.length ? 
+            <button onClick={connectWallet} className='hidden bg-[#5D3FD3] hover:opacity-80 text-white px-8 py-3'>
+            Connect Wallet
           </button>
-        </Link>
+         
+         : 
+            <button onClick={connectWallet} className='bg-[#5D3FD3] hover:opacity-80 text-white px-8 py-3'>
+            Connect Wallet
+          </button>
+         }
+
+        
       </div>
     </div>
   )
